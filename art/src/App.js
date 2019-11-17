@@ -9,8 +9,8 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 //Pages
 import home from "./pages/home";
-import login from "./pages/login";
 import signup from "./pages/signup";
+import login from "./pages/login";
 
 const theme = createMuiTheme({
   palette: {
@@ -27,16 +27,18 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <React.Fragment>
-          <NavBar />
-          <main className="container">
-            <Switch>
-              <Route path="/" component={home} />
-              <Route exact path="/login" component={login} />
-              <Route exact path="/signup" component={signup} />
-            </Switch>
-          </main>
-        </React.Fragment>
+        <div className="App">
+          <BrowserRouter>
+            <NavBar />
+            <main className="container">
+              <Switch>
+                <Route exact path="/" component={home} />
+                <Route exact path="/login" component={login} />
+                <Route exact path="/signup" component={signup} />
+              </Switch>
+            </main>
+          </BrowserRouter>
+        </div>
       </MuiThemeProvider>
     );
   }

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 
+import Painting from "../components/Painting.jsx";
+
 class home extends Component {
   state = {
     paintings: null
@@ -10,7 +12,6 @@ class home extends Component {
     axios
       .get("/paintings")
       .then(res => {
-        console.log(res.data);
         this.setState({
           paintings: res.data
         });
@@ -20,7 +21,7 @@ class home extends Component {
   render() {
     let recentPaintingsMarkup = this.state.paintings ? (
       this.state.paintings.map(painting => (
-        <p key={painting.paintingId}>{painting.body}</p>
+        <Painting key={painting.paintingId} painting={painting} />
       ))
     ) : (
       <p>Loading...</p>
