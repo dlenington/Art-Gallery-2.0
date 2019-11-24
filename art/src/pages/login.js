@@ -25,14 +25,14 @@ class login extends Component {
       errors: {}
     };
   }
-  // handleSubmit = event => {
-  //   event.preventDefault();
-  //   const userData = {
-  //     email: this.state.email,
-  //     password: this.state.password
-  //   };
-  //   this.props.loginUser(userData, this.props.history);
-  // };
+  handleSubmit = event => {
+    event.preventDefault();
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.props.loginUser(userData, this.props.history);
+  };
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
