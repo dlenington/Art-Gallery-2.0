@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
+import Profile from "../components/Profile";
 
 import Painting from "../components/Painting.jsx";
 
@@ -32,7 +33,7 @@ class home extends Component {
           {recentPaintingsMarkup}
         </Grid>
         <Grid item sm={4} xs={12}>
-          <p>Profile</p>
+          <Profile></Profile>
         </Grid>
       </Grid>
     );
