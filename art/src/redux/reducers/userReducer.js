@@ -2,7 +2,9 @@ import {
   SET_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  LIKE_PAINTING,
+  UNLIKE_PAINTING
 } from "../types";
 
 const initialState = {
@@ -32,6 +34,24 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    case LIKE_PAINTING:
+      return {
+        ...state,
+        likes: [
+          ...state.likes,
+          {
+            userHandle: state.credentials.handle,
+            paintingId: action.payload.paintingId
+          }
+        ]
+      };
+    case UNLIKE_PAINTING:
+      return {
+        ...state,
+        likes: state.likes.filter(
+          like => like.paintingId !== action.payload.paintingId
+        )
       };
     default:
       return state;

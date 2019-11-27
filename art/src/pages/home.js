@@ -2,26 +2,21 @@ import React, { Component } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Profile from "../components/Profile";
-
+import PropTypes from "prop-types";
 import Painting from "../components/Painting.jsx";
 
+//Redux imports
+import { getPaintings } from "../redux/actions/dataActions";
+import { connect } from "react-redux";
+
 class home extends Component {
-  state = {
-    paintings: null
-  };
   componentDidMount() {
-    axios
-      .get("/paintings")
-      .then(res => {
-        this.setState({
-          paintings: res.data
-        });
-      })
-      .catch(err => console.log(err));
+    this.props.getPaintings();
   }
   render() {
-    let recentPaintingsMarkup = this.state.paintings ? (
-      this.state.paintings.map(painting => (
+    const { paintings, loading } = this.props.data;
+    let recentPaintingsMarkup = !loading ? (
+      paintings.map(painting => (
         <Painting key={painting.paintingId} painting={painting} />
       ))
     ) : (
@@ -40,4 +35,13 @@ class home extends Component {
   }
 }
 
-export default home;
+home.propTypes = {
+  getPaintings: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  data: state.data
+});
+
+export default connect(mapStateToProps, { getPaintings })(home);
