@@ -2,7 +2,9 @@ import {
   SET_PAINTINGS,
   LIKE_PAINTING,
   UNLIKE_PAINTING,
-  LOADING_DATA
+  LOADING_DATA,
+  DELETE_PAINTING,
+  POST_PAINTING
 } from "../types";
 
 const initialState = {
@@ -32,6 +34,19 @@ export default function(state = initialState, action) {
       state.paintings[index] = action.payload;
       return {
         ...state
+      };
+    case DELETE_PAINTING:
+      let indexx = state.paintings.findIndex(
+        painting => painting.paintingId === action.payload
+      );
+      state.paintings.splice(indexx, 1);
+      return {
+        ...state
+      };
+    case POST_PAINTING:
+      return {
+        ...state,
+        paintings: [action.payload, ...state.paintings]
       };
     default:
       return state;
