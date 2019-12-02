@@ -6,6 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 import MyButton from "../util/MyButton";
 import DeletePainting from "./DeletePainting";
+import PaintingDialogue from "./PaintingDialogue";
 
 import { connect } from "react-redux";
 import { likePainting, unlikePainting } from "../redux/actions/dataActions";
@@ -116,6 +117,7 @@ class Painting extends Component {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} </span>
+          <PaintingDialogue paintingId={paintingId} userHandle={userHandle} />
         </CardContent>
       </Card>
     );

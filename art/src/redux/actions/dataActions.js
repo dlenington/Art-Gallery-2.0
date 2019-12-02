@@ -7,9 +7,12 @@ import {
   SET_ERRORS,
   POST_PAINTING,
   CLEAR_ERRORS,
-  LOADING_UI
+  LOADING_UI,
+  SET_PAINTING,
+  STOP_LOADING_UI
 } from "../types";
 import axios from "axios";
+import { resolveSoa } from "dns";
 
 //Get all paintings
 export const getPaintings = () => dispatch => {
@@ -29,6 +32,20 @@ export const getPaintings = () => dispatch => {
         payload: []
       });
     });
+};
+
+export const getPainting = paintingId => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .get(`/paintings/${paintingId}`)
+    .then(res => {
+      dispatch({
+        type: SET_PAINTING,
+        payload: res.data
+      });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => console.log(err));
 };
 //Post a painting
 export const postPainting = newPainting => dispatch => {

@@ -51,8 +51,6 @@ class PostPainting extends Component {
       });
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      console.log("entered");
-
       this.setState({ body: "", open: false, errors: {} });
     }
   }
@@ -149,6 +147,6 @@ const mapStateToProps = state => ({
   UI: state.UI
 });
 
-export default connect(mapStateToProps, { postPainting })(
+export default connect(mapStateToProps, { postPainting, clearErrors })(
   withStyles(styles)(PostPainting)
 );

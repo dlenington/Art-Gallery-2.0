@@ -4,7 +4,8 @@ import {
   UNLIKE_PAINTING,
   LOADING_DATA,
   DELETE_PAINTING,
-  POST_PAINTING
+  POST_PAINTING,
+  SET_PAINTING
 } from "../types";
 
 const initialState = {
@@ -25,6 +26,11 @@ export default function(state = initialState, action) {
         ...state,
         paintings: action.payload,
         loading: false
+      };
+    case SET_PAINTING:
+      return {
+        ...state,
+        painting: action.payload
       };
     case LIKE_PAINTING:
     case UNLIKE_PAINTING:
