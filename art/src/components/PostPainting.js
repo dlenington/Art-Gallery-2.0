@@ -43,8 +43,6 @@ class PostPainting extends Component {
     errors: {}
   };
   componentWillReceiveProps(nextProps) {
-    console.log("errors" + nextProps.UI.errors);
-    console.log("loading" + nextProps.UI.loading);
     if (nextProps.UI.errors) {
       this.setState({
         errors: nextProps.UI.errors

@@ -38,6 +38,9 @@ export default function(state = initialState, action) {
         painting => painting.paintingId === action.payload.paintingId
       );
       state.paintings[index] = action.payload;
+      if (state.painting.paintingId === action.payload.paintingId) {
+        state.painting = action.payload;
+      }
       return {
         ...state
       };

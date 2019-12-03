@@ -2,6 +2,7 @@ import React, { Component, Fragment, Profiler } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import MyButton from "../util/MyButton";
+import LikeButton from "./likeButton";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 
@@ -16,6 +17,7 @@ import Typography from "@material-ui/core/Typography";
 //Icons
 import CloseIcon from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
+import ChatIcon from "@material-ui/icons/Chat";
 
 //Redux stuff
 import { connect } from "react-redux";
@@ -39,6 +41,15 @@ const styles = theme => ({
   closeButton: {
     position: "absolute",
     left: "90%"
+  },
+  expandButton: {
+    position: "absolute",
+    left: "90%"
+  },
+  spinnerDiv: {
+    textAlign: "center",
+    marginTop: 50,
+    marginBottom: 50
   }
 });
 
@@ -69,9 +80,11 @@ class PaintingDialogue extends Component {
       UI: { loading }
     } = this.props;
     const dialogMarkup = loading ? (
-      <CircularProgress size={200} />
+      <div className={classes.spinnerDiv}>
+        <CircularProgress size={200} thickness={2} />
+      </div>
     ) : (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -90,9 +103,16 @@ class PaintingDialogue extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body1">{body}</Typography>
+          <LikeButton paintingId={paintingId} />
+          <span>{likeCount} likes</span>
+          <MyButton tip="comments">
+            <ChatIcon color="primary" />
+          </MyButton>
+          <span>{commentCount} comments</span>
         </Grid>
       </Grid>
     );
+    console.log(paintingId);
     return (
       <Fragment>
         <MyButton

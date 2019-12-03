@@ -7,18 +7,18 @@ import PropTypes from "prop-types";
 import MyButton from "../util/MyButton";
 import DeletePainting from "./DeletePainting";
 import PaintingDialogue from "./PaintingDialogue";
-
+//Redux
 import { connect } from "react-redux";
-import { likePainting, unlikePainting } from "../redux/actions/dataActions";
+
 //Icons
 import ChatIcon from "@material-ui/icons/Chat";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 //MUI imports
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import LikeButton from "./likeButton";
+import { unlikePainting } from "../redux/actions/dataActions";
 
 const styles = {
   card: {
@@ -36,22 +36,6 @@ const styles = {
 };
 
 class Painting extends Component {
-  likedPainting = () => {
-    if (
-      this.props.user.likes &&
-      this.props.user.likes.find(
-        like => like.paintingId === this.props.painting.paintingId
-      )
-    )
-      return true;
-    else return false;
-  };
-  likePainting = () => {
-    this.props.likePainting(this.props.painting.paintingId);
-  };
-  unlikePainting = () => {
-    this.props.unlikePainting(this.props.painting.paintingId);
-  };
   render() {
     dayjs.extend(relativeTime);
     const {
@@ -70,22 +54,8 @@ class Painting extends Component {
         credentials: { handle }
       }
     } = this.props;
-    const likeButton = !authenticated ? (
-      <MyButton tip="Like">
-        <Link to="/login">
-          <FavoriteBorder color="primary" />
-        </Link>
-      </MyButton>
-    ) : this.likedPainting() ? (
-      <MyButton tip="Undo like" onClick={this.unlikePainting}>
-        <FavoriteIcon color="primary" />
-      </MyButton>
-    ) : (
-      <MyButton tip="Like" onClick={this.likePainting}>
-        <FavoriteBorder color="primary" />
-      </MyButton>
-    );
-
+    console.log("paintingId in Painting" + paintingId);
+    console.log("userHandle in Painting" + userHandle);
     const deleteButton =
       authenticated && userHandle === handle ? (
         <DeletePainting paintingId={paintingId} />
@@ -111,12 +81,12 @@ class Painting extends Component {
             {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{body}</Typography>
-          {likeButton}
+          <LikeButton paintingId={paintingId} />
           <span>{likeCount} Likes</span>
           <MyButton tip="comments">
             <ChatIcon color="primary" />
           </MyButton>
-          <span>{commentCount} </span>
+          <span>{commentCount} comments</span>
           <PaintingDialogue paintingId={paintingId} userHandle={userHandle} />
         </CardContent>
       </Card>
@@ -125,8 +95,6 @@ class Painting extends Component {
 }
 
 Painting.propTypes = {
-  likePainting: PropTypes.func.isRequired,
-  unlikePainting: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   painting: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired
@@ -136,12 +104,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-const mapActionsToProps = {
-  likePainting,
-  unlikePainting
-};
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Painting));
+export default connect(mapStateToProps)(withStyles(styles)(Painting));
