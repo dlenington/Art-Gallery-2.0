@@ -1,11 +1,11 @@
 import React, { Component, Fragment, Profiler } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import LikeButton from "./likeButton";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-
+import Comments from "./Comments";
 //MUI
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -21,14 +21,10 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 //Redux stuff
 import { connect } from "react-redux";
-import { getPainting } from "../redux/actions/dataActions";
+import { getPainting } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.spreadThis,
-  invisibleSeparator: {
-    border: "none",
-    margin: 4
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -75,10 +71,12 @@ class PaintingDialogue extends Component {
         likeCount,
         commentCount,
         userImage,
-        userHandle
+        userHandle,
+        comments
       },
       UI: { loading }
     } = this.props;
+    console.log("painting in state" + likeCount);
     const dialogMarkup = loading ? (
       <div className={classes.spinnerDiv}>
         <CircularProgress size={200} thickness={2} />
@@ -110,9 +108,10 @@ class PaintingDialogue extends Component {
           </MyButton>
           <span>{commentCount} comments</span>
         </Grid>
+        <hr className={classes.visibleSeparator} />
+        <Comments comments={comments} />
       </Grid>
     );
-    console.log(paintingId);
     return (
       <Fragment>
         <MyButton

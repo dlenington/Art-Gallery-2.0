@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import NavBar from "./components/navbar";
+import NavBar from "./components/layout/navbar";
 import AuthRoute from "./util/AuthRoute";
 import axios from "axios";
 import Art from "./components/art";

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import Grid from "@material-ui/core/Grid";
-import Profile from "../components/Profile";
+import Profile from "../components/profile/Profile";
 import PropTypes from "prop-types";
-import Painting from "../components/Painting.jsx";
+import Painting from "../components/painting/Painting";
 
 //Redux imports
 import { getPaintings } from "../redux/actions/dataActions";

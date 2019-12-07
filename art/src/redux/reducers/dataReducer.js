@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   paintings: [],
-  painting: [],
+  painting: {},
   loading: false
 };
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import DeletePainting from "./DeletePainting";
 import PaintingDialogue from "./PaintingDialogue";
 //Redux
@@ -18,7 +18,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import LikeButton from "./likeButton";
-import { unlikePainting } from "../redux/actions/dataActions";
+import { unlikePainting } from "../../redux/actions/dataActions";
 
 const styles = {
   card: {
@@ -54,8 +54,6 @@ class Painting extends Component {
         credentials: { handle }
       }
     } = this.props;
-    console.log("paintingId in Painting" + paintingId);
-    console.log("userHandle in Painting" + userHandle);
     const deleteButton =
       authenticated && userHandle === handle ? (
         <DeletePainting paintingId={paintingId} />

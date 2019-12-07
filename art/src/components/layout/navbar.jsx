@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import MyButton from "../util/MyButton";
-import PostPainting from "./PostPainting";
+import MyButton from "../../util/MyButton";
+import PostPainting from "../painting/PostPainting";
 //MUI imports
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/Toolbar";
