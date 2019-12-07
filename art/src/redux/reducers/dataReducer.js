@@ -39,7 +39,7 @@ export default function(state = initialState, action) {
       );
       state.paintings[index] = action.payload;
       if (state.painting.paintingId === action.payload.paintingId) {
-        state.painting = action.payload;
+        state.painting.likeCount = action.payload.likeCount;
       }
       return {
         ...state
