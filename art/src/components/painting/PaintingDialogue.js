@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Profiler } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import MyButton from "../../util/MyButton";
@@ -6,10 +6,10 @@ import LikeButton from "./likeButton";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 //MUI
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -21,7 +21,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 //Redux stuff
 import { connect } from "react-redux";
-import { getPainting } from "../../redux/actions/dataActions";
+import { getPainting, clearErrors } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -59,6 +59,7 @@ class PaintingDialogue extends Component {
   };
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -109,6 +110,7 @@ class PaintingDialogue extends Component {
           <span>{commentCount} comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
+        <CommentForm paintingId={paintingId} />
         <Comments comments={comments} />
       </Grid>
     );
@@ -143,6 +145,7 @@ class PaintingDialogue extends Component {
   }
 }
 PaintingDialogue.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   getPainting: PropTypes.func.isRequired,
   paintingId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -156,7 +159,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  getPainting
+  getPainting,
+  clearErrors
 };
 
 export default connect(

@@ -9,10 +9,10 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   SET_PAINTING,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
+  SUBMIT_COMMENT
 } from "../types";
 import axios from "axios";
-import { resolveSoa } from "dns";
 
 //Get all paintings
 export const getPaintings = () => dispatch => {
@@ -57,7 +57,7 @@ export const postPainting = newPainting => dispatch => {
         type: POST_PAINTING,
         payload: res.data
       });
-      dispatch({ type: CLEAR_ERRORS });
+      dispatch(clearErrors());
     })
     .catch(err => {
       dispatch({
@@ -92,7 +92,24 @@ export const unlikePainting = paintingId => dispatch => {
     })
     .catch(err => console.log(err));
 };
-
+//Submit a comment
+export const submitComment = (paintingId, commentData) => dispatch => {
+  axios
+    .post(`/paintings/${paintingId}/comment`, commentData)
+    .then(res => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data
+      });
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
 export const deletePainting = paintingId => dispatch => {
   axios
     .delete(`/paintings/${paintingId}`)

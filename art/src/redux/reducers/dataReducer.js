@@ -5,7 +5,8 @@ import {
   LOADING_DATA,
   DELETE_PAINTING,
   POST_PAINTING,
-  SET_PAINTING
+  SET_PAINTING,
+  SUBMIT_COMMENT
 } from "../types";
 
 const initialState = {
@@ -56,6 +57,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         paintings: [action.payload, ...state.paintings]
+      };
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        painting: {
+          ...state.painting,
+          comments: [action.payload, ...state.painting.comments]
+        }
       };
     default:
       return state;

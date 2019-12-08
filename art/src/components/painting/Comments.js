@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Profiler } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
@@ -25,7 +25,7 @@ class Comments extends Component {
     const { comments, classes } = this.props;
     return (
       <Grid container>
-        {comments.map(comment => {
+        {comments.map((comment, index) => {
           const { body, createdAt, userImage, userHandle } = comment;
           return (
             <Fragment key={createdAt}>
@@ -57,7 +57,9 @@ class Comments extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-              <hr className={classes.visibleSeparator} />
+              {index !== comments.length - 1 && (
+                <hr className={classes.visibleSeparator} />
+              )}
             </Fragment>
           );
         })}

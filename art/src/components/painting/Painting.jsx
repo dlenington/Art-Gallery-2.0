@@ -18,7 +18,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import LikeButton from "./likeButton";
-import { unlikePainting } from "../../redux/actions/dataActions";
 
 const styles = {
   card: {
@@ -69,7 +68,7 @@ class Painting extends Component {
           <Typography
             variant="h5"
             component={Link}
-            to={"/users/${users}"}
+            to={`/users/${userHandle}`}
             color="primary"
           >
             {userHandle}
