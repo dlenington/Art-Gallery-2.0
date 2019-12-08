@@ -119,6 +119,24 @@ export const deletePainting = paintingId => dispatch => {
     .catch(err => console.log(err));
 };
 
+export const getUserData = userHandle => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/user/${userHandle}`)
+    .then(res => {
+      dispatch({
+        type: SET_PAINTINGS,
+        payload: res.data.paintings
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_PAINTINGS,
+        payload: null
+      });
+    });
+};
+
 export const clearErrors = () => dispatch => {
   dispatch({ type: CLEAR_ERRORS });
 };

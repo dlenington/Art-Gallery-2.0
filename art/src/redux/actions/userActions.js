@@ -80,6 +80,17 @@ export const uploadImage = formData => dispatch => {
     .catch(err => console.log(err));
 };
 
+export const markNotificationsRead = data => notificationIds => dispatch => {
+  axios
+    .post("/notifications", notificationIds)
+    .then(res => {
+      dispatch({
+        type: MARK_NOTIFICATIONS_READ
+      });
+    })
+    .catch(err => console.log(err));
+};
+
 export const editUserDetails = userDetails => dispatch => {
   dispatch({ type: LOADING_USER });
   axios

@@ -6,7 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 import MyButton from "../../util/MyButton";
 import DeletePainting from "./DeletePainting";
-import PaintingDialogue from "./PaintingDialogue";
+import PaintingDialog from "./PaintingDialog";
 //Redux
 import { connect } from "react-redux";
 
@@ -84,7 +84,11 @@ class Painting extends Component {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <PaintingDialogue paintingId={paintingId} userHandle={userHandle} />
+          <PaintingDialog
+            paintingId={paintingId}
+            userHandle={userHandle}
+            openDialog={this.props.openDialog}
+          />
         </CardContent>
       </Card>
     );
@@ -94,7 +98,8 @@ class Painting extends Component {
 Painting.propTypes = {
   user: PropTypes.object.isRequired,
   painting: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

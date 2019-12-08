@@ -53,6 +53,12 @@ export default function(state = initialState, action) {
           like => like.paintingId !== action.payload.paintingId
         )
       };
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.forEach(not => (not.read = true));
+      return {
+        ...state
+      };
+
     default:
       return state;
   }
