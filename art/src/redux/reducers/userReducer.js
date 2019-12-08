@@ -4,7 +4,8 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   LIKE_PAINTING,
-  UNLIKE_PAINTING
+  UNLIKE_PAINTING,
+  MARK_NOTIFICATIONS_READ
 } from "../types";
 
 const initialState = {

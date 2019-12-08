@@ -4,7 +4,8 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  MARK_NOTIFICATIONS_READ
 } from "../types";
 import axios from "axios";
 
