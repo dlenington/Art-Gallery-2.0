@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Profile from "../components/profile/Profile";
 import PropTypes from "prop-types";
 import Painting from "../components/painting/Painting";
+import PaintingSkeleton from "../util/PaintingSkeleton";
 
 //Redux imports
 import { getPaintings } from "../redux/actions/dataActions";
@@ -20,7 +21,7 @@ class home extends Component {
         <Painting key={painting.paintingId} painting={painting} />
       ))
     ) : (
-      <p>Loading...</p>
+      <PaintingSkeleton />
     );
     return (
       <Grid container spacing={2}>

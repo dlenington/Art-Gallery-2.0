@@ -4,7 +4,8 @@ import axios from "axios";
 import Painting from "../components/painting/Painting";
 import StaticProfile from "../components/profile/StaticProfile";
 import Grid from "@material-ui/core/Grid";
-
+import PaintingSkeleton from "../util/PaintingSkeleton";
+import ProfileSkeleton from "../util/ProfileSkeleton";
 import { connect } from "react-redux";
 import { getUserData } from "../redux/actions/dataActions";
 
@@ -31,7 +32,7 @@ class user extends Component {
     const { paintingIdParam } = this.state;
 
     const paintingsMarkup = loading ? (
-      <p>Loading data...</p>
+      <PaintingSkeleton />
     ) : paintings === null ? (
       <p>No paintings from this user</p>
     ) : !paintingIdParam ? (
@@ -59,7 +60,7 @@ class user extends Component {
         </Grid>
         <Grid item sm={4} xs={12}>
           {this.state.profile === null ? (
-            <p>Loading profile...</p>
+            <ProfileSkeleton />
           ) : (
             <StaticProfile profile={this.state.profile} />
           )}
