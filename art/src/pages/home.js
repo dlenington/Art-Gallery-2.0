@@ -10,12 +10,13 @@ import PaintingSkeleton from "../util/PaintingSkeleton";
 import { getPaintings } from "../redux/actions/dataActions";
 import { connect } from "react-redux";
 
-class home extends Component {
+class Home extends Component {
   componentDidMount() {
     this.props.getPaintings();
   }
   render() {
     const { paintings, loading } = this.props.data;
+    console.log(paintings);
     let recentPaintingsMarkup = !loading ? (
       paintings.map(painting => (
         <Painting key={painting.paintingId} painting={painting} />
@@ -45,4 +46,4 @@ const mapStateToProps = state => ({
   data: state.data
 });
 
-export default connect(mapStateToProps, { getPaintings })(home);
+export default connect(mapStateToProps, { getPaintings })(Home);
