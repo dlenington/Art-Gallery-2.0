@@ -37,7 +37,7 @@ class Home extends Component {
   }
 }
 
-home.propTypes = {
+Home.propTypes = {
   getPaintings: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
 };
