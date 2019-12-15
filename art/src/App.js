@@ -21,6 +21,7 @@ import home from "./pages/home";
 import login from "./pages/login";
 import signup from "./pages/signup";
 import user from "./pages/user";
+import admin from "./pages/admin";
 
 const theme = createMuiTheme(themeFile);
 
@@ -53,6 +54,7 @@ class App extends Component {
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
                 <Route exact path="/users/:handle" component={user} />
+                <Route exact path="/admin" component={admin} />
                 <Route
                   exact
                   path="/users/:handle/painting/:paintingId"
