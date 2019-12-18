@@ -11,9 +11,6 @@ import { getPaintings } from "../redux/actions/dataActions";
 import { connect } from "react-redux";
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.getPaintings();
-  }
   render() {
     const { paintings, loading } = this.props.data;
     console.log(paintings);
