@@ -20,7 +20,7 @@ class Admin extends Component {
   state = {
     page: 0,
     newPage: 0,
-    rowsPerPage: 0
+    rowsPerPage: 5
   };
   componentDidMount() {
     this.props.getPaintings();
@@ -40,12 +40,13 @@ class Admin extends Component {
     const itemsCount = paintings.length;
     console.log(paintings.length);
     const pagesCount = Math.ceil(itemsCount / pageSize);
-    const pages = _.range(1, pagesCount + 1);
+    // const pages = _.range(1, pagesCount + 1);
     // const [page, setPage] = React.useState(0);
     // const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleChangePage = (event, newPage) => {
-      this.setState({ newPage: page });
+      console.log("newPage" + newPage);
+      this.setState({ page: newPage });
     };
 
     const handleChangeRowsPerPage = event => {
@@ -91,7 +92,7 @@ class Admin extends Component {
           count={paintings.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onChangePage={() => handleChangePage(page)}
+          onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
 
