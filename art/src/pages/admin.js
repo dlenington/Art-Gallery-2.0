@@ -46,6 +46,7 @@ class Admin extends Component {
       if (order !== 0) return order;
       return a[1] - b[1];
     });
+    return stabilizedThis.map(el => el[0]);
   };
 
   getSorting = (order, orderBy) => {
@@ -107,7 +108,7 @@ class Admin extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {paintings.map(painting => (
+              {/* {paintings.map(painting => (
                 <TableRow key={painting.paintingId}>
                   <TableCell component="th" scope="row">
                     {painting.userHandle}
@@ -115,7 +116,25 @@ class Admin extends Component {
                   <TableCell>{painting.body}</TableCell>
                   <TableCell>{painting.createdAt}</TableCell>
                 </TableRow>
-              ))}
+              ))} */}
+
+              {this.stableSort(paintings, this.getSorting(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((painting, index) => {
+                  return (
+                    <TableRow key={painting.paintingId}>
+                      <TableCell
+                        id={painting.paintingId}
+                        component="th"
+                        scope="row"
+                      >
+                        {painting.userHandle}
+                      </TableCell>
+                      <TableCell>{painting.body}</TableCell>
+                      <TableCell>{painting.createdAt}</TableCell>
+                    </TableRow>
+                  );
+                })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
                   <TableCell colSpan={6} />
