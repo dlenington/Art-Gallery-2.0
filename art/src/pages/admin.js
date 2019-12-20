@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import _ from "lodash";
+// import _ from "lodash";
 
 //MUI Stuff
 import Table from "@material-ui/core/Table";
@@ -20,12 +20,39 @@ class Admin extends Component {
   state = {
     page: 0,
     newPage: 0,
-    rowsPerPage: 5
+    rowsPerPage: 5,
+    dense: false,
+    order: "asc",
+    orderBy: "userHandle"
   };
   componentDidMount() {
     this.props.getPaintings();
   }
 
+  desc = (a, b, orderBy) => {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  };
+
+  stableSort = (array, cmp) => {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = cmp(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+  };
+
+  getSorting = (order, orderBy) => {
+    return order === "desc"
+      ? (a, b) => this.desc(a, b, orderBy)
+      : (a, b) => -this.desc(a, b, orderBy);
+  };
   //   handlePageChange = page => {
   //     this.setState({ currentPage: page });
   //   };
@@ -33,13 +60,17 @@ class Admin extends Component {
   render() {
     const { paintings } = this.props.data;
     console.log(paintings);
-    const page = this.state.page;
-    const rowsPerPage = this.state.rowsPerPage;
+    const { page, rowsPerPage, dense, orderBy, order } = this.state;
+
+    const emptyRows =
+      rowsPerPage -
+      Math.min(rowsPerPage, paintings.length - page * rowsPerPage);
+    console.log("rowsPerPage" + rowsPerPage);
     console.log("page" + page);
-    const pageSize = 2;
-    const itemsCount = paintings.length;
-    console.log(paintings.length);
-    const pagesCount = Math.ceil(itemsCount / pageSize);
+    // const pageSize = 2;
+    // const itemsCount = paintings.length;
+    console.log("paintings.length" + paintings.length);
+    // const pagesCount = Math.ceil(itemsCount / pageSize);
     // const pages = _.range(1, pagesCount + 1);
     // const [page, setPage] = React.useState(0);
     // const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -50,7 +81,9 @@ class Admin extends Component {
     };
 
     const handleChangeRowsPerPage = event => {
+      console.log("handleChangeRows" + parseInt(event.target.value, 10));
       this.setState({ rowsPerPage: parseInt(event.target.value, 10) });
+
       this.setState({ page: 0 });
     };
     const titles = [
@@ -83,6 +116,11 @@ class Admin extends Component {
                   <TableCell>{painting.createdAt}</TableCell>
                 </TableRow>
               ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
