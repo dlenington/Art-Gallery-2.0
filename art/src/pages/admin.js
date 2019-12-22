@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import withStyles from "@material-ui/core/styles/withStyles";
+import TableDialog from "../table/tableDialog";
+
 // import _ from "lodash";
 
 //MUI Stuff
@@ -9,12 +12,17 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { TablePagination } from "@material-ui/core";
+import { TablePagination, ListItemText } from "@material-ui/core";
 
 //Redux stuff
 import { getPaintings } from "../redux/actions/dataActions";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
+import { ListItem } from "material-ui";
+
+const styles = theme => ({
+  ...theme.spreadThis
+});
 
 class Admin extends Component {
   state = {
@@ -23,7 +31,8 @@ class Admin extends Component {
     rowsPerPage: 5,
     dense: false,
     order: "asc",
-    orderBy: "userHandle"
+    orderBy: "userHandle",
+    open: false
   };
   componentDidMount() {
     this.props.getPaintings();
@@ -54,28 +63,15 @@ class Admin extends Component {
       ? (a, b) => this.desc(a, b, orderBy)
       : (a, b) => -this.desc(a, b, orderBy);
   };
-  //   handlePageChange = page => {
-  //     this.setState({ currentPage: page });
-  //   };
 
   render() {
     const { paintings } = this.props.data;
-    console.log(paintings);
-    const { page, rowsPerPage, dense, orderBy, order } = this.state;
-
+    const { page, rowsPerPage, dense, orderBy, order, open } = this.state;
     const emptyRows =
       rowsPerPage -
       Math.min(rowsPerPage, paintings.length - page * rowsPerPage);
-    console.log("rowsPerPage" + rowsPerPage);
-    console.log("page" + page);
-    // const pageSize = 2;
-    // const itemsCount = paintings.length;
-    console.log("paintings.length" + paintings.length);
-    // const pagesCount = Math.ceil(itemsCount / pageSize);
-    // const pages = _.range(1, pagesCount + 1);
-    // const [page, setPage] = React.useState(0);
-    // const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+    //Table Methods
     const handleChangePage = (event, newPage) => {
       console.log("newPage" + newPage);
       this.setState({ page: newPage });
@@ -87,6 +83,13 @@ class Admin extends Component {
 
       this.setState({ page: 0 });
     };
+
+    //Dialog Methods
+
+    const handleClickOpen = () => {
+      this.setState({ open: true });
+    };
+
     const titles = [
       {
         label: "User"
@@ -132,6 +135,13 @@ class Admin extends Component {
                       </TableCell>
                       <TableCell>{painting.body}</TableCell>
                       <TableCell>{painting.createdAt}</TableCell>
+                      <TableCell>
+                        <TableDialog
+                          open={open}
+                          onClose={this.handleClose}
+                          painting={painting}
+                        />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -152,21 +162,6 @@ class Admin extends Component {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
-
-        {/* <nav>
-          <ul>
-            {pages.map(page => (
-              <li
-                key={page}
-                className={
-                  page === currentPage ? "pageItem active" : "page-item"
-                }
-              >
-                <a onClick={() => this.handlePageChange(page)}>{page}</a>
-              </li>
-            ))}
-          </ul>
-        </nav> */}
       </div>
     );
   }
@@ -181,4 +176,6 @@ const mapStateToProps = state => ({
   data: state.data
 });
 
-export default connect(mapStateToProps, { getPaintings })(Admin);
+export default withStyles(styles)(
+  connect(mapStateToProps, { getPaintings })(Admin)
+);

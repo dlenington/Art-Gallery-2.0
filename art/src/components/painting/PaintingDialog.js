@@ -94,7 +94,6 @@ class PaintingDialog extends Component {
       },
       UI: { loading }
     } = this.props;
-    console.log("painting in state" + likeCount);
     const dialogMarkup = loading ? (
       <div className={classes.spinnerDiv}>
         <CircularProgress size={200} thickness={2} />

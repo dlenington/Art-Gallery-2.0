@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 class Home extends Component {
   render() {
     const { paintings, loading } = this.props.data;
-    console.log(paintings);
+    console.log("home" + paintings);
     let recentPaintingsMarkup = !loading ? (
       paintings.map(painting => (
         <Painting key={painting.paintingId} painting={painting} />
