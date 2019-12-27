@@ -137,9 +137,9 @@ class Admin extends Component {
                       <TableCell>{painting.createdAt}</TableCell>
                       <TableCell>
                         <TableDialog
+                          paintingId={painting.paintingId}
                           open={open}
                           onClose={this.handleClose}
-                          painting={painting}
                         />
                       </TableCell>
                     </TableRow>
