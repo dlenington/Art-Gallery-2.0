@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
+import dayjs from "dayjs";
 
 //MUI Stuff
 import Grid from "@material-ui/core/Grid";
@@ -40,9 +41,13 @@ class TableDialog extends Component {
     const dialogMarkup = (
       <Grid container spacing={2}>
         <Grid item>
-          <Typography variant="body2">{userHandle}</Typography>
+          <Typography variant="body1">{userHandle}</Typography>
+          <hr border="none" />
           <Typography variant="body1">{body}</Typography>
-          <Typography variant="body1">{createdAt}</Typography>
+          <hr border="none" />
+          <Typography variant="body1">
+            {dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
+          </Typography>
         </Grid>
       </Grid>
     );
