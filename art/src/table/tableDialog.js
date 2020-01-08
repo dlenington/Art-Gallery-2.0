@@ -41,8 +41,6 @@ class TableDialog extends Component {
     const dialogMarkup = (
       <Grid container spacing={2}>
         <Grid item>
-          <Typography variant="body1">{userHandle}</Typography>
-          <hr border="none" />
           <Typography variant="body1">{body}</Typography>
           <hr border="none" />
           <Typography variant="body1">
@@ -53,13 +51,15 @@ class TableDialog extends Component {
     );
     return (
       <Fragment>
-        <Button onClick={this.handleOpen}>Details</Button>
+        <Button variant="contained" color="primary" onClick={this.handleOpen}>
+          Details
+        </Button>
         <Dialog
           onClose={this.handleClose}
           aria-labelledby="Detail View"
           open={open}
         >
-          <DialogTitle id="detail-view">Detail View</DialogTitle>
+          <DialogTitle id="detail-view">{userHandle}</DialogTitle>
           <DialogContent>{dialogMarkup}</DialogContent>
         </Dialog>
       </Fragment>
