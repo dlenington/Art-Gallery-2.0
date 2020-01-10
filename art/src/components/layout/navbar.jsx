@@ -16,6 +16,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 class NavBar extends Component {
   render() {
     const { authenticated } = this.props;
+    const admin = true;
     return (
       <AppBar>
         <Toolbar className="nav-container">
@@ -40,9 +41,11 @@ class NavBar extends Component {
               <Button color="inherit" component={Link} to="/signup">
                 Signup
               </Button>
-              <Button color="inherit" component={Link} to="/admin">
-                Admin
-              </Button>
+              {admin ? (
+                <Button color="inherit" component={Link} to="/admin">
+                  Admin
+                </Button>
+              ) : null}
             </Fragment>
           )}
         </Toolbar>
