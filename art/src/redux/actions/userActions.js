@@ -5,7 +5,8 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  MARK_NOTIFICATIONS_READ
+  MARK_NOTIFICATIONS_READ,
+  SET_ADMIN
 } from "../types";
 import axios from "axios";
 
@@ -100,4 +101,8 @@ export const editUserDetails = userDetails => dispatch => {
       dispatch(getUserData());
     })
     .catch(err => console.log());
+};
+
+export const setAdmin = () => dispatch => {
+  dispatch({ type: SET_ADMIN });
 };

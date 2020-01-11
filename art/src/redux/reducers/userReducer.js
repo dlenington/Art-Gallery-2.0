@@ -5,7 +5,8 @@ import {
   LOADING_USER,
   LIKE_PAINTING,
   UNLIKE_PAINTING,
-  MARK_NOTIFICATIONS_READ
+  MARK_NOTIFICATIONS_READ,
+  SET_ADMIN
 } from "../types";
 
 const initialState = {
@@ -18,6 +19,11 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case SET_ADMIN:
+      return {
+        ...state,
+        admin: true
+      };
     case SET_AUTHENTICATED:
       return {
         ...state,

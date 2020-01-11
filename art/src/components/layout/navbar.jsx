@@ -15,8 +15,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 
 class NavBar extends Component {
   render() {
-    const { authenticated } = this.props;
-    const admin = true;
+    const { authenticated, admin } = this.props;
+
     return (
       <AppBar>
         <Toolbar className="nav-container">
